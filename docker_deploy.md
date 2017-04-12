@@ -3,6 +3,12 @@ Deploy on Docker
 
 Services in this repository can be executed inside docker containers.
 
+Docker
+------
+
+If you don't have Docker installed go to [docs.docker.com](https://docs.docker.com/) to download the appropriate version for your OS and to start up Docker on your machine (*Get Started* section).
+
+
 Network
 -------
 
@@ -21,3 +27,11 @@ For convenience of deployment this repository includes `docker-compose` configur
 To run project install `docker-compose` and then execute in root directory of this repository
 
     docker-compose up
+
+For more info about Docker Compose consult [this guide](https://docs.docker.com/compose/gettingstarted/).
+
+!!! Note for non-Linux users: Since docker runs in Linux VM in order to get proper url for viewing the apps you should find out the url that VM redirects its traffic to. You can easily do this by running
+
+    docker-machine ip $HOST_NAME
+
+Microservices are hosted on the `ip_from_the_last_command:5001`.
