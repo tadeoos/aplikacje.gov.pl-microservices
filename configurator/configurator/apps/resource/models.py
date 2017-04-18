@@ -16,6 +16,9 @@ class Resource(models.Model):
         resource."""
         raise NotImplementedError()
 
+    def __str__(self):
+        return self.name
+
 
 class StringResource(Resource):
     value = models.TextField()
