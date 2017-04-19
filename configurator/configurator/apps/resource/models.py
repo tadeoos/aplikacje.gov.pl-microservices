@@ -68,3 +68,6 @@ class DictResourceEntry(models.Model):
     dictionary = models.ForeignKey(DictResource, related_name='entries')
     key = models.TextField()
     value = models.ForeignKey(Resource)
+
+    def __str__(self):
+        return '{} : {}'.format(self.dictionary, self.value)
