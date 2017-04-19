@@ -1,7 +1,8 @@
 from django.db import models
 
+from polymorphic.models import PolymorphicModel
 
-class Resource(models.Model):
+class Resource(PolymorphicModel):
     """Abstract resource."""
 
     name = models.CharField(max_length=200)
