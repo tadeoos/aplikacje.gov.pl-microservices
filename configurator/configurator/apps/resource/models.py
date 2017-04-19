@@ -1,7 +1,8 @@
 from django.db import models
+from polymorphic.models import PolymorphicModel
 
 
-class Resource(models.Model):
+class Resource(PolymorphicModel):
     """Abstract resource."""
 
     name = models.CharField(max_length=200)
@@ -16,11 +17,22 @@ class Resource(models.Model):
         resource."""
         raise NotImplementedError()
 
+    def to_dicts_and_lists(self, depth=None):
+        """Convert resource to structure of dicts and lists suitable for
+        encoding in JSON.
+
+        `depth` is integer or None. If None all subresources should be
+        inlined. If not None subresources to this level should be
+        inlined. Value of 0 means that only single id will be returned.
+        """
+        raise NotImplementedError()
+
     def __str__(self):
         return self.name
 
 
 class StringResource(Resource):
+    type_name = 'string'
     value = models.TextField()
 
     def requirements(self):
@@ -31,6 +43,7 @@ class StringResource(Resource):
 
 
 class IntResource(Resource):
+    type_name = 'int'
     value = models.IntegerField()
 
     def requirements(self):
@@ -42,6 +55,7 @@ class IntResource(Resource):
 
 class ListResource(Resource):
     """List of resources. All of them should be same type."""
+    type_name = 'list'
     value = models.ManyToManyField(Resource, related_name='member_of_lists')
 
     def requirements(self):
@@ -53,6 +67,8 @@ class ListResource(Resource):
 
 class DictResource(Resource):
     """Dictionary of which keys are strings and values are resources."""
+    type_name = 'dict'
+
     def requirements(self):
         return frozenset(entry.value for entry in self.entries)
 
