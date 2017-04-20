@@ -1,12 +1,13 @@
 from django.db import models
 from polymorphic.models import PolymorphicModel
 
+from polymorphic.models import PolymorphicModel
 
 class Resource(PolymorphicModel):
     """Abstract resource."""
 
     name = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
 
     def requirements(self):
         """Frozenset of resources directly required by this resource."""
@@ -86,4 +87,4 @@ class DictResourceEntry(models.Model):
     value = models.ForeignKey(Resource)
 
     def __str__(self):
-        return '{} : {}'.format(self.key, self.value)
+        return '{} : {}'.format(self.dictionary, self.value)
