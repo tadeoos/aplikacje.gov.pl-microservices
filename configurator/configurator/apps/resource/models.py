@@ -6,7 +6,7 @@ class Resource(PolymorphicModel):
     """Abstract resource."""
 
     name = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
 
     def requirements(self):
         """Frozenset of resources directly required by this resource."""
