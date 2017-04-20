@@ -9,15 +9,16 @@ class ResourceChildAdmin(PolymorphicChildModelAdmin):
 
     # By using these `base_...` attributes instead of the regular ModelAdmin `form` and `fieldsets`,
     # the additional fields of the child models are automatically added to the admin form.
-    base_form = ...
-    base_fieldsets = (
-        ...
-    )
+    # base_form = ...
+    # base_fieldsets = (
+    #     ...
+    # )
 
 
 @admin.register(StringResource)
 class StringResourceAdmin(ResourceChildAdmin):
     base_model = StringResource
+    show_in_index = True
     # define custom features here
 
 
